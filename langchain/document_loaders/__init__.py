@@ -8,6 +8,7 @@ from langchain.document_loaders.azure_blob_storage_container import (
 from langchain.document_loaders.azure_blob_storage_file import (
     AzureBlobStorageFileLoader,
 )
+from langchain.document_loaders.bigquery import BigQueryLoader
 from langchain.document_loaders.blackboard import BlackboardLoader
 from langchain.document_loaders.college_confidential import CollegeConfidentialLoader
 from langchain.document_loaders.conllu import CoNLLULoader
@@ -32,6 +33,7 @@ from langchain.document_loaders.imsdb import IMSDbLoader
 from langchain.document_loaders.markdown import UnstructuredMarkdownLoader
 from langchain.document_loaders.notebook import NotebookLoader
 from langchain.document_loaders.notion import NotionDirectoryLoader
+from langchain.document_loaders.notiondb import NotionDBLoader
 from langchain.document_loaders.obsidian import ObsidianLoader
 from langchain.document_loaders.pdf import (
     OnlinePDFLoader,
@@ -55,6 +57,7 @@ from langchain.document_loaders.unstructured import (
 )
 from langchain.document_loaders.url import UnstructuredURLLoader
 from langchain.document_loaders.web_base import WebBaseLoader
+from langchain.document_loaders.whatsapp_chat import WhatsAppChatLoader
 from langchain.document_loaders.word_document import UnstructuredWordDocumentLoader
 from langchain.document_loaders.youtube import (
     GoogleApiClient,
@@ -71,6 +74,7 @@ __all__ = [
     "UnstructuredURLLoader",
     "DirectoryLoader",
     "NotionDirectoryLoader",
+    "NotionDBLoader",
     "ReadTheDocsLoader",
     "GoogleDriveLoader",
     "UnstructuredHTMLLoader",
@@ -113,9 +117,11 @@ __all__ = [
     "GoogleApiClient",
     "CSVLoader",
     "BlackboardLoader",
+    "WhatsAppChatLoader",
     "DataFrameLoader",
     "AzureBlobStorageFileLoader",
     "AzureBlobStorageContainerLoader",
     "SitemapLoader",
     "DuckDBLoader",
+    "BigQueryLoader",
 ]
