@@ -5,12 +5,13 @@ import re
 from typing import Any, Callable, List, NamedTuple, Optional, Sequence, Tuple
 
 from langchain.agents.agent import Agent, AgentExecutor
+from langchain.agents.agent_types import AgentType
 from langchain.agents.mrkl.prompt import FORMAT_INSTRUCTIONS, PREFIX, SUFFIX
 from langchain.agents.tools import Tool
 from langchain.callbacks.base import BaseCallbackManager
 from langchain.chains import LLMChain
-from langchain.llms.base import BaseLLM
 from langchain.prompts import PromptTemplate
+from langchain.schema import BaseLanguageModel
 from langchain.tools.base import BaseTool
 
 FINAL_ANSWER_ACTION = "Final Answer:"
@@ -58,7 +59,7 @@ class ZeroShotAgent(Agent):
     @property
     def _agent_type(self) -> str:
         """Return Identifier of agent type."""
-        return "zero-shot-react-description"
+        return AgentType.ZERO_SHOT_REACT_DESCRIPTION
 
     @property
     def observation_prefix(self) -> str:
@@ -102,7 +103,7 @@ class ZeroShotAgent(Agent):
     @classmethod
     def from_llm_and_tools(
         cls,
-        llm: BaseLLM,
+        llm: BaseLanguageModel,
         tools: Sequence[BaseTool],
         callback_manager: Optional[BaseCallbackManager] = None,
         prefix: str = PREFIX,
@@ -157,7 +158,7 @@ class MRKLChain(AgentExecutor):
 
     @classmethod
     def from_chains(
-        cls, llm: BaseLLM, chains: List[ChainConfig], **kwargs: Any
+        cls, llm: BaseLanguageModel, chains: List[ChainConfig], **kwargs: Any
     ) -> AgentExecutor:
         """User friendly way to initialize the MRKL chain.
 
