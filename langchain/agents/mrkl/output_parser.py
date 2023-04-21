@@ -21,7 +21,7 @@ class MRKLOutputParser(AgentOutputParser):
         regex = r"Action\s*\d*\s*:(.*?)\nAction\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
         match = re.search(regex, text, re.DOTALL)
         if not match:
-            raise OutputParserException(f"Could not parse LLM output: `{text}`")
+            return AgentAction(tool = "Invalid tool", tool_input=text, log=text)
         action = match.group(1).strip()
         action_input = match.group(2)
         return AgentAction(action, action_input.strip(" ").strip('"'), text)
