@@ -37,26 +37,28 @@ class MRKLOutputParser(AgentOutputParser):
             return AgentFinish(
                 {"output": text.split(FINAL_ANSWER_ACTION)[-1].strip()}, text
             )
-
-        if not re.search(r"Action\s*\d*\s*:[\s]*(.*?)", text, re.DOTALL):
-            raise OutputParserException(
-                f"Could not parse LLM output: `{text}`",
-                observation="Invalid Format: Missing 'Action:' after 'Thought:'",
-                llm_output=text,
-                send_to_llm=True,
-            )
-        elif not re.search(
-            r"[\s]*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)", text, re.DOTALL
-        ):
-            raise OutputParserException(
-                f"Could not parse LLM output: `{text}`",
-                observation="Invalid Format:"
-                " Missing 'Action Input:' after 'Action:'",
-                llm_output=text,
-                send_to_llm=True,
-            )
         else:
-            raise OutputParserException(f"Could not parse LLM output: `{text}`")
+            return AgentAction("Invalid tool chosen", "", text)
+
+        # if not re.search(r"Action\s*\d*\s*:[\s]*(.*?)", text, re.DOTALL):
+        #     raise OutputParserException(
+        #         f"Could not parse LLM output: `{text}`",
+        #         observation="Invalid Format: Missing 'Action:' after 'Thought:'",
+        #         llm_output=text,
+        #         send_to_llm=True,
+        #     )
+        # elif not re.search(
+        #     r"[\s]*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)", text, re.DOTALL
+        # ):
+        #     raise OutputParserException(
+        #         f"Could not parse LLM output: `{text}`",
+        #         observation="Invalid Format:"
+        #         " Missing 'Action Input:' after 'Action:'",
+        #         llm_output=text,
+        #         send_to_llm=True,
+        #     )
+        # else:
+        #     raise OutputParserException(f"Could not parse LLM output: `{text}`")
 
     @property
     def _type(self) -> str:
