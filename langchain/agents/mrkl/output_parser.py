@@ -38,7 +38,7 @@ class MRKLOutputParser(AgentOutputParser):
                 {"output": text.split(FINAL_ANSWER_ACTION)[-1].strip()}, text
             )
         else:
-            return AgentAction("Invalid tool chosen", "", text)
+            return AgentAction(f"'{text}'", "", text)
 
         # if not re.search(r"Action\s*\d*\s*:[\s]*(.*?)", text, re.DOTALL):
         #     raise OutputParserException(
