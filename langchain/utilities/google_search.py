@@ -50,6 +50,7 @@ class GoogleSearchAPIWrapper(BaseModel):
     google_cse_id: Optional[str] = None
     k: int = 10
     siterestrict: bool = False
+    show_urls: bool = True
 
     class Config:
         """Configuration for this pydantic object."""
@@ -91,13 +92,17 @@ class GoogleSearchAPIWrapper(BaseModel):
     def run(self, query: str) -> str:
         """Run query through GoogleSearch and parse result."""
         snippets = []
+        links = []
         results = self._google_search_results(query, num=self.k)
         if len(results) == 0:
             return "No good Google Search Result was found"
         for result in results:
             if "snippet" in result:
                 snippets.append(result["snippet"])
-
+            if "link" in result:
+                links.append(result["link"])
+        if self.show_urls:
+            return " | ".join([f"{link} {snippet}" for snippet, link in zip(snippets, links)])
         return " ".join(snippets)
 
     def results(self, query: str, num_results: int) -> List[Dict]:
